@@ -58,6 +58,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'simple_form'
 gem 'yaml_db'
+gem 'virtus'
 # gem 'rspotify', git: "https://github.com/vaughankg/rspotify.git"
 gem 'rspotify'
 gem 'timezone'

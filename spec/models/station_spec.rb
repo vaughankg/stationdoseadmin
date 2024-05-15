@@ -23,8 +23,11 @@ RSpec.describe Station, type: :model do
       playlist = station.generate_playlist
 
       expect(playlist.tracks.count).to be > 0
-      expect(playlist.undergroundness).to eq 3
-      expect(playlist.profile_name).not_to be(nil)
+      # expect(playlist.undergroundness).to eq 3
+      # expect(playlist.profile_name).not_to be(nil)
+      expect(playlist.summary).not_to be(nil)
+      expect(playlist.summary[:criteria][:undergroundness]).not_to be(nil)
+      expect(playlist.summary[:criteria][:undergroundness].target).to eq 3
       expect(playlist.station).to eq station
     end
 

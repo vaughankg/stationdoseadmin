@@ -1,106 +1,24 @@
-lounge:
-  randomness: 0.7
+  name: 'lounge'
   criteria:
     energy:
+      name: 'energy'
+      randomness: 0.7
       multiplier: 2.0
-      min: 0
-      max: 1.0
+      criteria_min: 0
+      criteria_max: 1.0
+      target: 0.45
     undergroundness:
+      name: 'undergroundness'
+      randomness: 0.7
       multiplier: 1.25
-      min: 1
-      max: 5
-      slot_min_delta: -2.0
-      slot_max_delta: 1.0
+      criteria_min: 1
+      criteria_max: 5
+      min_delta: -2.0
+      max_delta: 1.0
     valence:
-      multiplier: 2
-  slots:
-    - criteria:
-        energy: { target: 0.45, min: .6, max: .7 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.36, min: .56, max: .78 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.52, min: .3, max: .80 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.48, min: .3, max: .85 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.41, min: .3, max: .9 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.62, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.60, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.71, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.80, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.12, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.60, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.74, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.87, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.76, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.74, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.39, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.70, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.74, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.74, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.83, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.78, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.74, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.15, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.67, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.64, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.60, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.70, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.79, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.84, min: .3, max: 1 }
-        valence: { target: 0.3 }
-    - criteria:
-        energy: { target: 0.50, min: .3, max: 1 }
-        valence: { target: 0.3 }
+      name: 'valence'
+      randomness: 0.7
+      multiplier: 2.0
+      criteria_min: 0
+      criteria_max: 1.0
+      target: 0.3

@@ -38,17 +38,19 @@ RSpec.describe Api::V1::StationsController, type: :controller do
   end
 
   describe '#playlist_profile_chooser' do
-    it 'should choose a plsylsit_profile from a ll' do
+    it 'should choose a playlist_profile from a ll' do
       ll = '33.985488,-118.475250'
       get :playlist_profile_chooser, params: { ll: ll }
-      station = json_response[:playlist_profile_chooser]
-      expect(station).not_to be nil
-      expect(station[:weather]).not_to be nil
-      expect(station[:localtime]).not_to be nil
-      expect(station[:timezone]).not_to be nil
-      expect(station[:day]).not_to be nil
-      expect(station[:name]).not_to be nil
-      expect(station[:all_names]).to include('mellow', 'lounge', 'club')
+      playlist_profile_chooser = json_response[:playlist_profile_chooser]
+      expect(playlist_profile_chooser).not_to be nil
+      expect(playlist_profile_chooser[:weather]).not_to be nil
+      expect(playlist_profile_chooser[:localtime]).not_to be nil
+      expect(playlist_profile_chooser[:timezone]).not_to be nil
+      expect(playlist_profile_chooser[:day]).not_to be nil
+      expect(playlist_profile_chooser[:name]).not_to be nil
+      expect(
+        playlist_profile_chooser[:all_names]
+      ).to include('mellow', 'lounge', 'club')
     end
   end
 

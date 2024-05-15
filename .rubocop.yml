@@ -24,6 +24,9 @@ AllCops:
     - "**/vendor/**/*"
     - "**/schema.rb"
 
+Metrics/LineLength:
+  Max: 100
+
 # Prefer &&/|| over and/or.
 Style/AndOr:
   Enabled: true

@@ -9,5 +9,4 @@ FactoryGirl.define do
     energy { rand }
     valence { rand }
   end
-
 end

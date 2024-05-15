@@ -1,74 +1,52 @@
 class PlaylistProfile
-  def self.choose(options = {})
-    name = options[:name] || PlaylistProfileChooser.new(options).name
-    new(name, options)
+  class Criteria
+    include Virtus.model
+
+    attribute :name, String
+    attribute :randomness, Float, default: 0
+    attribute :multiplier, Float, default: 1
+    attribute :criteria_min, Float
+    attribute :criteria_max, Float
+    attribute :min_delta, Float
+    attribute :max_delta, Float
+    # Default to target + min_delta ... then ... criteria_min
+    attribute :min, Float, default: (lambda do |criteria, _|
+      if criteria.min_delta && criteria.target
+        [criteria.target + criteria.min_delta, criteria.criteria_min].max
+      else
+        criteria.criteria_min
+      end
+    end)
+    # Default to target + max_delta ... then ... criteria_max
+    attribute :max, Float, default: (lambda do |criteria, _|
+      if criteria.max_delta && criteria.target
+        [criteria.target + criteria.max_delta, criteria.criteria_max].min
+      else
+        criteria.criteria_max
+      end
+    end)
+    attribute :target, Float
+  end
+end
+
+class PlaylistProfile
+  include Virtus.model
+  include ActiveModel::SerializerSupport
+
+  def self.default
+    filename = "#{Rails.root}/config/playlist_profiles/default.yml"
+    data = YAML.load_file(filename).deep_symbolize_keys
+    new(data)
   end
 
-  attr_reader :slot_profiles, :size, :name, :undergroundness
+  attribute :name, String
+  attribute :criteria, Hash[Symbol => Criteria]
 
-  def initialize(name, options = {})
-    @name = name
-    @undergroundness = options[:undergroundness]
-
-    data = PLAYLIST_PROFILES[name].dup
-
-    if undergroundness = options[:undergroundness]
-      data[:slots].each do |slot_data|
-        slot_data[:criteria][:undergroundness] ||= {}
-        slot_data[:criteria][:undergroundness][:target] = undergroundness
-      end
-    end
-
-    @slot_profiles = data[:slots].each_with_index.map {|x, i| SlotProfile.new(data, i) }
-    @size = @slot_profiles.count
-  end
-
-  class SlotProfile
-    attr_reader :criteria, :randomness
-
-    def initialize(data, slot_index)
-      @randomness = data[:randomness] || 0.8
-
-      @criteria = {}
-
-      data[:criteria].each do |name, criteria_data|
-        slot_criteria_data = data[:slots][slot_index][:criteria][name] || {}
-
-        cr = Criteria.new
-
-        cr.name = name
-        cr.multiplier = slot_criteria_data[:multiplier] || criteria_data[:multiplier] || 1.0
-        cr.global_min = criteria_data[:min] || 0
-        cr.global_max = criteria_data[:max] || 1
-        cr.target = slot_criteria_data[:target]
-
-        cr.min_filter = slot_criteria_data[:min] || if criteria_data[:slot_min_delta] && cr.target
-          [cr.target + criteria_data[:slot_min_delta], cr.global_min].max
-        else
-          cr.global_min
-        end
-
-        cr.max_filter = slot_criteria_data[:max] || if criteria_data[:slot_max_delta] && cr.target
-        [cr.target + criteria_data[:slot_max_delta], cr.global_max].min
-        else
-          cr.global_max
-        end
-
-        @criteria[name] = cr
-      end
-    end
-
-    class Criteria
-      attr_accessor :name, :target, :min_filter, :max_filter, :global_min, :global_max, :multiplier
-
-      # A value from 0 - 1 indicating how close the value is to the target.
-      # In a range 0 to 20, and a target of 10. A value of 10 would yield a normalized weight of 1.0. A value of 0 would yield a value of 0.5.
-      # Given a target of 20, a value of 0 would yield a normalaized_weight of 0.0.
-      #
-      def normalized_score(value)
-        self.target ? 1 - ((self.target - value).abs / (self.global_max - self.global_min).to_f) : 0
-      end
-
-    end
-  end
+  # used for analytics
+  attribute :weather, String
+  attribute :localtime, String
+  attribute :hour, Integer
+  attribute :day, Integer
+  attribute :timezone, String
+  attribute :ll, String
 end

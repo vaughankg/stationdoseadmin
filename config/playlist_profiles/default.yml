@@ -1,24 +1,25 @@
-  name: 'club'
+  name: 'default'
   criteria:
     energy:
       name: 'energy'
-      randomness: 0.7
-      multiplier: 2.0
+      randomness: 0
+      multiplier: 1
       criteria_min: 0
       criteria_max: 1.0
-      target: 0.8
+      target: 0.5
     undergroundness:
       name: 'undergroundness'
-      randomness: 0.7
-      multiplier: 1.25
+      randomness: 0
+      multiplier: 1
       criteria_min: 1
       criteria_max: 5
       min_delta: -2.0
       max_delta: 1.0
+      target: 3
     valence:
       name: 'valence'
-      randomness: 0.7
-      multiplier: 2.0
+      randomness: 0
+      multiplier: 1
       criteria_min: 0
       criteria_max: 1.0
-      target: 0.8
+      target: 0.5

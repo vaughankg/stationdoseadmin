@@ -62,29 +62,18 @@ class Station < ApplicationRecord
       end
       options[:undergroundness] ||= undergroundness
 
-      playlist_profile = PlaylistProfile.choose(options)
+      # Generate a playlist profile based on options supplied
+      playlist_profile =
+        PlaylistProfileChooser
+        .new(options)
+        .playlist_profile
 
-      # for the moment print the summary each time
-      @playlist = Playlist.generate(
-        playlist_profile,
-        self,
-        print_summary: options[:print]
-      )
-
-      if options[:print]
-        logger.debug playlist.summary[:text]
-        return nil
-      end
+      @playlist = Playlist.generate(playlist_profile, self)
 
       if @user_station_link
-        # @user_station_link.tracks = playlist.tracks
-        # @user_station_link.tracks_updated_at = DateTime.now
         @user_station_link.playlist = @playlist
         @user_station_link.undergroundness = options[:undergroundness]
         @user_station_link.save
-
-        # Note this will decorate with user information like favorited
-        # @user_station_link.tracks_with_user_info
       end
 
       @playlist
